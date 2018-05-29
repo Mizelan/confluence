@@ -14,10 +14,10 @@ services:
       - '8091:8091'
     environment:
       - 'CATALINA_OPTS= -Xms256m -Xmx1g'
-      - 'CONFLUENCE_PROXY_NAME='
-      - 'CONFLUENCE_PROXY_PORT='
-      - 'CONFLUENCE_PROXY_SCHEME='
-      - 'CONFLUENCE_DELAYED_START='
+      - 'CONFLUENCE_PROXY_NAME=devpyo.iptime.org'
+      - 'CONFLUENCE_PROXY_PORT=443'
+      - 'CONFLUENCE_PROXY_SCHEME=https'
+      - 'CONFLUENCE_DELAYED_START=10s'
     labels:
       com.blacklabelops.description: "Atlassian Confluence"
       com.blacklabelops.service: "confluence"
@@ -41,6 +41,22 @@ services:
     labels:
       com.blacklabelops.description: "PostgreSQL Database Server"
       com.blacklabelops.service: "postgresql"
+
+  nginx:
+    image: blacklabelops/nginx
+    container_name: nginx
+    hostname: nginx
+    networks:
+      - confluencenet
+    environment:
+      - 'SERVER1REVERSE_PROXY_LOCATION1=/'
+      - 'SERVER1REVERSE_PROXY_PASS1=http://confluence:8090'
+      - 'SERVER1REVERSE_PROXY_APPLICATION1=confluence'
+      - 'SERVER1CERTIFICATE_DNAME=/CN=CrustyClown/OU=SpringfieldEntertainment/O=devpyo.iptime.org/L=Springfield/C=US'
+      - 'SERVER1HTTPS_ENABLED=true'
+      - 'SERVER1HTTP_ENABLED=false'
+    ports:
+      - '443:443'
 
 volumes:
   confluencedata:
