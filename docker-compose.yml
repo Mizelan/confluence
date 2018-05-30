@@ -3,6 +3,7 @@ version: '2'
 services:
   confluence:
     image: blacklabelops/confluence
+    restart: always
     container_name: confluence
     hostname: confluence
     networks:
@@ -24,6 +25,7 @@ services:
 
   postgresql:
     image: blacklabelops/postgres
+    restart: always
     container_name: postgres
     hostname: postgres
     networks:
@@ -44,6 +46,7 @@ services:
 
   nginx:
     image: blacklabelops/nginx
+    restart: always
     container_name: nginx
     hostname: nginx
     networks:
