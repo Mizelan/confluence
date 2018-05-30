@@ -52,9 +52,11 @@ services:
       - 'SERVER1REVERSE_PROXY_LOCATION1=/'
       - 'SERVER1REVERSE_PROXY_PASS1=http://confluence:8090'
       - 'SERVER1REVERSE_PROXY_APPLICATION1=confluence'
-      - 'SERVER1CERTIFICATE_DNAME=/CN=CrustyClown/OU=SpringfieldEntertainment/O=devpyo.iptime.org/L=Springfield/C=US'
+      - 'SERVER1CERTIFICATE_DNAME=/CN=devpyo.iptime.org/OU=DevPyoOrg/O=ConfluenceUnit/L=Confluence/C=KR'
       - 'SERVER1HTTPS_ENABLED=true'
       - 'SERVER1HTTP_ENABLED=false'
+    volumes:
+      - ./keys:/etc/nginx/keys
     ports:
       - '443:443'
 
