@@ -10,6 +10,7 @@ services:
       - confluencenet
     volumes:
       - confluencedata:/var/atlassian/confluence
+      - ./temp:/tmp/backup
     ports:
       - '80:8090'
       - '8091:8091'
