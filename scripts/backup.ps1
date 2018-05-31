@@ -5,6 +5,7 @@ $WikiContainerId = (docker ps -aqf name=confluence)
 $DBContainerId = (docker ps -aqf name=postgres)
 
 # 정보 표시
+Write-Output BackupPath=$BackupPath
 Write-Output DBContainerId=$DBContainerId
 Write-Output WikiContainerId=$WikiContainerId
 
