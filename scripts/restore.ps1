@@ -19,9 +19,9 @@ Write-Output DBContainerId=$DBContainerId
 Write-Output WikiContainerId=$WikiContainerId
 
 # DB 복원
-Get-Content $BackupPath/db.sql | docker exec -i $DBContainerId psql -U postgres
+#Get-Content $BackupPath/db.sql | docker exec -i $DBContainerId psql -U postgres
 
 # 컨플루언스 복원
-Copy-Item -Path $BackupPath\confluence.tgz -Destination ./temp/confluence.tgz
-docker exec -t $WikiContainerId tar xzvf /tmp/backup/confluence.tgz --strip=1 -C /var/atlassian/confluence
+Copy-Item -Force -Path $BackupPath\confluence.tgz -Destination ./temp/confluence.tgz
+docker exec -t --privileged $WikiContainerId tar xzvf /tmp/backup/confluence.tgz -C /var/atlassian
 Remove-Item ./temp/confluence.tgz

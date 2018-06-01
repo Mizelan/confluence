@@ -9,7 +9,7 @@ services:
     networks:
       - confluencenet
     volumes:
-      - confluencedata:/var/atlassian/confluence
+      - ./confluencedata:/var/atlassian/confluence
       - ./temp:/tmp/backup
     ports:
       - '80:8090'
@@ -65,8 +65,8 @@ services:
       - '443:443'
 
 volumes:
-  confluencedata:
-    external: false
+#  confluencedata:
+#    external: false
   postgresqldata:
     external: false
 
