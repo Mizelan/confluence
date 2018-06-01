@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   confluence:
@@ -23,6 +23,8 @@ services:
     labels:
       com.blacklabelops.description: "Atlassian Confluence"
       com.blacklabelops.service: "confluence"
+    depends_on:
+      - postgresql
 
   postgresql:
     image: blacklabelops/postgres
@@ -44,6 +46,11 @@ services:
     labels:
       com.blacklabelops.description: "PostgreSQL Database Server"
       com.blacklabelops.service: "postgresql"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
 
   nginx:
     image: blacklabelops/nginx
@@ -63,6 +70,8 @@ services:
       - ./keys:/etc/nginx/keys
     ports:
       - '443:443'
+    depends_on:
+      - confluence
 
 volumes:
 #  confluencedata:
